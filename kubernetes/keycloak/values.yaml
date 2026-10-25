@@ -1,0 +1,33 @@
+command:
+  - "/opt/keycloak/bin/kc.sh"
+  - "start"
+  - "--http-port=8080"
+  - "--hostname-strict=false"
+extraEnv: |
+  - name: KC_HOSTNAME
+    value: "https://keycloak.k8s.home.lab" 
+  - name: KC_BOOTSTRAP_ADMIN_USERNAME
+    value: "admin"
+  - name: KC_BOOTSTRAP_ADMIN_PASSWORD
+    value: "REDACTED"
+  - name: JAVA_OPTS_APPEND
+    value: >-
+      -Djgroups.dns.query={{ include "keycloak.fullname" . }}-headless
+
+http:
+  enabled: true
+  relativePath: "/"
+
+ingress:
+  enabled: false
+
+httpRoute:
+  enabled: false
+
+service:
+  type: ClusterIP
+  httpPort: 80
+
+proxy:
+  enabled: true
+  mode: xforwarded

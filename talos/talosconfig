@@ -1,0 +1,8 @@
+context: homelab
+contexts:
+    homelab:
+        endpoints:
+            - 192.168.1.101
+        ca: REDACTED
+        crt: REDACTED
+        key: REDACTED

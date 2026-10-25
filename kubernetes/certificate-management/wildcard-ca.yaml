@@ -1,0 +1,35 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: k8s-wildcard-cert
+  namespace: traefik # Or wherever your Ingress controller looks for default certs
+spec:
+  secretName: k8s-wildcard-tls
+  duration: 2160h # 90 days
+  renewBefore: 360h # 15 days
+  issuerRef:
+    name: internal-ca-issuer
+    kind: ClusterIssuer
+  commonName: "*.k8s.home.lab"
+  dnsNames:
+    - "*.k8s.home.lab"
+    - "k8s.home.lab"
+
+---
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: pi-wildcard-cert
+  namespace: default
+spec:
+  secretName: pi-wildcard-tls
+  duration: 2160h # 90 days
+  renewBefore: 360h # 15 days
+  issuerRef:
+    name: internal-ca-issuer
+    kind: ClusterIssuer
+  commonName: "*.pi.home.lab"
+  dnsNames:
+    - "*.pi.home.lab"
+    - "pi.home.lab"

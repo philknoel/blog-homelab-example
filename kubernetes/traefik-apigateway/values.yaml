@@ -1,0 +1,13 @@
+# values.yaml for Traefik Helm chart
+experimental:
+  kubernetesGateway:
+    enabled: true
+
+providers:
+  kubernetesGateway:
+    enabled: true
+
+service:
+  type: LoadBalancer
+  annotations:
+    metallb.universe.tf/address-pool: fritzbox-pool
